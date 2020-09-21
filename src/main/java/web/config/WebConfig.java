@@ -47,8 +47,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean(name="messageSource")
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:pages/cars");
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("src/main/resources/messages");
   //      messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setFallbackToSystemLocale(false);
         messageSource.setDefaultEncoding("UTF-8");
@@ -66,7 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
- //       templateEngine.setTemplateEngineMessageSource(messageSource());
+        templateEngine.setTemplateEngineMessageSource(messageSource());
  //       templateEngine.addMessageResolver(messageResolver());
         return templateEngine;
     }
