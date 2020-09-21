@@ -13,8 +13,8 @@ import java.util.Optional;
 public class CarController {
 
     @GetMapping(value = "/cars")
-    public String printCars(@RequestParam (required = false) Optional<String> locale, ModelMap model) {
-        String tablehead = (locale.orElse("en")).equals("ru") ? "Машины" : "Cars";
+    public String printCars(@RequestParam (defaultValue = "en") String locale, ModelMap model) {
+        String tablehead = locale.equals("ru") ? "Машины" : "Cars";
         model.addAttribute("tablehead", tablehead);
         model.addAttribute("listOfCars", new CarService().getListOfCars());
         return "cars";
