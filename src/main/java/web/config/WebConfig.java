@@ -45,29 +45,11 @@ public class WebConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
-    @Bean(name="messageSource")
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("src/main/resources/messages");
-  //      messageSource.setUseCodeAsDefaultMessage(true);
-        messageSource.setFallbackToSystemLocale(false);
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-
-//    @Bean
-//    public StandardMessageResolver messageResolver() {
-//        StandardMessageResolver messageResolver = new StandardMessageResolver();
-//        return messageResolver;
-//    }
-
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
-        templateEngine.setTemplateEngineMessageSource(messageSource());
- //       templateEngine.addMessageResolver(messageResolver());
         return templateEngine;
     }
 
@@ -80,23 +62,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-    @Bean(name="localeResolver")
-    public LocaleResolver localeResolver(){
-        SessionLocaleResolver resolver = new SessionLocaleResolver();
-        resolver.setDefaultLocale(new Locale("en"));
-        return resolver;
-    }
 
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
- //       interceptor.setParamName("locale");
-        return interceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-    }
 
 }
